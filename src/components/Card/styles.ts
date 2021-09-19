@@ -6,7 +6,7 @@ export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.shape};
 
   /* width: 300px; */
-  width: ${RFValue(245)}px;
+  width: ${RFValue(280)}px;
   /* height: 230px; */
   height: ${RFValue(184)}px;
 
@@ -42,7 +42,7 @@ export const Footer = styled.View``;
 
 export const Amount = styled.Text`
   /* font-size: 32px; */
-  font-size: ${RFValue(28)}px;
+  font-size: ${RFValue(30)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
   color: ${({ theme }) => theme.colors.title};
   /* margin-top: 35px; */

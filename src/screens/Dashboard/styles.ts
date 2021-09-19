@@ -23,7 +23,7 @@ export const HeaderFirstSection = styled.View`
   align-items: center;
   justify-content: space-between;
   /* padding: 0px 24px; */
-  padding: 0px ${RFValue(19)}px;
+  padding: 0px ${RFValue(20)}px;
 
   /* background-color: red; */
 `;
@@ -68,13 +68,13 @@ export const Name = styled.Text`
 export const Icon = styled(Feather)`
   color: ${({ theme }) => theme.colors.two};
   /* font-size: 24px; */
-  font-size: ${RFValue(19)}px;
+  font-size: ${RFValue(22)}px;
 `;
 
 export const CardsSection = styled.ScrollView.attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
-  contentContainerStyle: { paddingHorizontal: 24 }
+  contentContainerStyle: { paddingHorizontal: 20 }
 })`
   width: 100%;
   position: absolute;
