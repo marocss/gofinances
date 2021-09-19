@@ -14,7 +14,7 @@ export const Header = styled.View`
   /* height: 270px; */
   
   background-color: ${({ theme }) => theme.colors.one};
-  padding-top: ${RFValue(47)}px;
+  padding-top: ${RFValue(53)}px;
   
   `;
 
@@ -33,12 +33,12 @@ export const User = styled.View`
   /* margin-left: 24px; */
   /* background-color: red; */
 
-  height: ${RFValue(37)}px;
+  height: ${RFValue(43)}px;
 `;
 
 export const Avatar = styled.Image`
-  width: ${RFValue(37)}px;
-  height: ${RFValue(37)}px;
+  width: ${RFValue(43)}px;
+  height: ${RFValue(43)}px;
 
   border-radius: 7px;
 `;
