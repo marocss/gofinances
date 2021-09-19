@@ -1,8 +1,19 @@
 import React from 'react';
-// import { Text } from 'react-native';
-// import { Feather } from '@expo/vector-icons'
+import { View } from 'react-native';
+import { Card } from '../../components/Card';
+import { 
+  Container, 
+  Header, 
+  HeaderFirstSection, 
+  User, 
+  Avatar, 
+  TextArea, 
+  Greeting, 
+  Name, 
+  Icon,
+  CardsSection
+} from './styles';
 
-import { Container, Header, HeaderFirstSection, User, Avatar, TextArea, Greeting, Name, Icon } from './styles';
 
 export const Dashboard = () => {
   return (
@@ -18,9 +29,15 @@ export const Dashboard = () => {
             </TextArea>
           </User>
 
-          <Icon name="power"  />
+          <Icon name="power"/>
         </HeaderFirstSection>
       </Header>
+
+      <CardsSection>
+        <Card />
+        <Card />
+        <Card />
+      </CardsSection>
     </Container>
   );
 }
