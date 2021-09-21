@@ -23,31 +23,34 @@ import {
 export const Dashboard = () => {
   const transactionsData = [
     {
+      type: 'income',
       title: "Web development",
-      amount: "$ 2,100.00",
+      amount: "$ 3,000.00",
       category: {
         name: 'Sales',
         icon: 'dollar-sign'
       },
-      date: "04/13/2021",
+      date: "04/16/2021",
     },
     {
-      title: "Web development",
-      amount: "$ 2,100.00",
+      type: 'outcome',
+      title: "Pizzy Burger",
+      amount: "$ 50.00",
       category: {
-        name: 'Sales',
-        icon: 'dollar-sign'
+        name: 'Food',
+        icon: 'coffee'
       },
-      date: "04/13/2021",
+      date: "04/09/2021",
     },
     {
-      title: "Web development",
-      amount: "$ 2,100.00",
+      type: 'outcome',
+      title: "Rent",
+      amount: "$ 2,500.00",
       category: {
-        name: 'Sales',
-        icon: 'dollar-sign'
+        name: 'Living',
+        icon: 'home'
       },
-      date: "04/13/2021",
+      date: "04/05/2021",
     },
   ];
 
@@ -95,6 +98,7 @@ export const Dashboard = () => {
           data={transactionsData}
           renderItem={({ item }) => <TransactionCard data={item} />} 
           showsVerticalScrollIndicator={false}
+          keyExtractor={( item ) => item.title + item.date}
           contentContainerStyle={{
             paddingBottom: RFValue(80)
           }}
