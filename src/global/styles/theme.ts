@@ -1,8 +1,11 @@
 export default {
   colors: {
-    one: '#5636d3',
+    // one: '#5636d3',
+    // one: '#4C9881',
+    one: '#4D9A9F',
 
     two: '#ff872d',
+    // two: '#FF9772',
     two_light: 'rgba(255, 135, 44, 0.3)',
 
     correct: '#12a454',
