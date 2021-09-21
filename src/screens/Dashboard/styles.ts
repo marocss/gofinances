@@ -64,3 +64,16 @@ export const CardsSection = styled.ScrollView.attrs({
   position: absolute;
   margin-top: ${RFValue(116)}px;
 `;
+
+export const TransactionsSection = styled.View`
+  flex: 1;
+  padding: 0px ${RFValue(19)}px;
+  margin-top: ${RFPercentage(12)}px;
+`;
+
+export const Title = styled.Text`
+  /* color: ${({ theme }) => theme.colors.shape};
+  */
+  font-size: ${RFValue(16)}px;
+  font-family: ${({ theme }) => theme.fonts.regular}; 
+`;

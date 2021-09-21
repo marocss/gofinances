@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card } from '../../components/Card';
+import { HighlightCard } from '../../components/HighlightCard';
+import { Footer } from '../../components/HighlightCard/styles';
+import { TransactionCard } from '../../components/TransactionCard';
 import { 
   Container, 
   Header, 
@@ -10,7 +12,9 @@ import {
   Greeting, 
   Name, 
   Icon,
-  CardsSection
+  CardsSection,
+  TransactionsSection,
+  Title
 } from './styles';
 
 
@@ -33,25 +37,30 @@ export const Dashboard = () => {
       </Header>
 
       <CardsSection>
-        <Card 
+        <HighlightCard 
           title="Income" 
-          amount="$ 3.400,00" 
+          amount="$ 3,400.00" 
           lastTransaction="Last income was on april 13th"
           type="up"
         />
-        <Card 
+        <HighlightCard 
           title="Outcome" 
-          amount="$ 400,00" 
+          amount="$ 400.00" 
           lastTransaction="Last outcome was on april 2nd"
           type="down"
         />
-        <Card 
+        <HighlightCard 
           title="Total" 
-          amount="$ 23.657,02" 
+          amount="$ 23,657.02" 
           lastTransaction="Between 1st and 19th"
           type="total"
         />
       </CardsSection>
+
+      <TransactionsSection>
+        <Title>Transactions</Title>
+        <TransactionCard />
+      </TransactionsSection>
     </Container>
   );
 }
