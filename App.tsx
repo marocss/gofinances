@@ -5,6 +5,7 @@ import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from
 // import { Dashboard } from './src/screens/Dashboard';
 import { Register } from './src/screens/Register';
 import theme from './src/global/styles/theme';
+import { Categories } from './src/screens/Categories';
 
 
 const App = () => {
@@ -21,7 +22,8 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       {/* <Dashboard /> */}
-      <Register />
+      {/* <Register /> */}
+      <Categories />
     </ThemeProvider>
   );
 }
