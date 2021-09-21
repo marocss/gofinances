@@ -8,14 +8,16 @@ interface Category {
   icon: string;
 }
 
+export interface TransactionCardProps {
+  type: 'income' | 'outcome'
+  title: string;
+  amount: string;
+  category: Category;
+  date: string;
+}
+
 interface Props {
-  data: {
-    type: 'income' | 'outcome'
-    title: string;
-    amount: string;
-    category: Category;
-    date: string;
-  }
+  data: TransactionCardProps;
 }
 
 export const TransactionCard = ({ data }: Props) => {

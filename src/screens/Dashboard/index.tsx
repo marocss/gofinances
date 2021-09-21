@@ -1,8 +1,6 @@
 import React from 'react';
-import { RFValue } from 'react-native-responsive-fontsize';
 import { HighlightCard } from '../../components/HighlightCard';
-import { Footer } from '../../components/HighlightCard/styles';
-import { TransactionCard } from '../../components/TransactionCard';
+import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
 import { 
   Container, 
   Header, 
@@ -19,10 +17,14 @@ import {
   List
 } from './styles';
 
+export interface ListProps extends TransactionCardProps {
+  id: string;
+}
 
 export const Dashboard = () => {
-  const transactionsData = [
+  const transactionsData: ListProps[] = [
     {
+      id: '0',
       type: 'income',
       title: "Web development",
       amount: "$ 3,000.00",
@@ -33,6 +35,7 @@ export const Dashboard = () => {
       date: "04/16/2021",
     },
     {
+      id: '2',
       type: 'outcome',
       title: "Pizzy Burger",
       amount: "$ 50.00",
@@ -43,6 +46,7 @@ export const Dashboard = () => {
       date: "04/09/2021",
     },
     {
+      id: '3',
       type: 'outcome',
       title: "Rent",
       amount: "$ 2,500.00",
@@ -94,17 +98,12 @@ export const Dashboard = () => {
 
       <TransactionsSection>
         <Title>Transactions</Title>
+        
         <List 
           data={transactionsData}
           renderItem={({ item }) => <TransactionCard data={item} />} 
-          showsVerticalScrollIndicator={false}
-          keyExtractor={( item ) => item.title + item.date}
-          contentContainerStyle={{
-            paddingBottom: RFValue(80)
-          }}
+          keyExtractor={( item ) => item.id}
         />
-
-        
       </TransactionsSection>
     </Container>
   );

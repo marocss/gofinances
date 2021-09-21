@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { Feather } from '@expo/vector-icons'
 
+import { ListProps } from '.'
+import { FlatList } from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -76,7 +78,13 @@ export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular}; 
 `;
 
-export const List = styled.FlatList`
+export const List = styled(FlatList as new () => FlatList<ListProps>).attrs({
+  contentContainerStyle: {
+    paddingBottom: RFValue(80),
+  },
+  showsVerticalScrollIndicator: false
+
+})`
   margin-top: ${RFValue(18)}px;
 
 `;
