@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '../../components/Forms/Button';
 import { Input } from '../../components/Forms/Input';
 import { Label } from '../../components/Forms/Label';
+import Selector from '../../components/Forms/Selector';
 import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton';
 
 import { Container, Header, Title, Form, InputSection, TransactionTypeButtonSection } from './styles';
@@ -23,9 +24,9 @@ export const Register = () => {
       <Form>
         <InputSection>
           <Label text="Name" />
-          <Input placeholder="name" />
+          <Input placeholder="Name" />
           <Label text="Price" />
-          <Input placeholder="price" />
+          <Input placeholder="Price" />
 
           <TransactionTypeButtonSection>
             <TransactionTypeButton 
@@ -43,6 +44,7 @@ export const Register = () => {
               hasSelectedTransactionType={hasSelectedTransactionType}
             />
           </TransactionTypeButtonSection>
+          <Selector text="Category" />
         </InputSection>
         <Button text="Submit" />
       </Form>
