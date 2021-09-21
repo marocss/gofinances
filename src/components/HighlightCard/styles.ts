@@ -26,7 +26,6 @@ export const Header = styled.View`
 export const Title = styled.Text<TypeProps>`
   font-size: ${RFValue(13)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  /* color: ${({ theme }) => theme.colors.title}; */
   color: ${({ theme, type }) => 
     (type === 'total') ? theme.colors.shape : theme.colors.title
   };

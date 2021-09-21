@@ -8,21 +8,14 @@ export const Container = styled.View`
 
   padding: ${RFValue(17)}px ${RFValue(19)}px;
   
-  margin-top: ${RFValue(17)}px;
-  /* height: 134px; */
-  /* width: ${RFValue(283)}px;
-  height: ${RFValue(184)}px;
-  border-radius: 7px;
-  padding: ${RFValue(15)}px ${RFValue(19)}px;
-  padding-bottom: ${RFValue(34)}px;
-  margin-right: ${RFValue(13)}px; */
+  margin-bottom: ${RFValue(14)}px;
 `;
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(13)}px;
   color: ${({ theme }) => theme.colors.title};
-  `;
+`;
 
 export const Amount = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};

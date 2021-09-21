@@ -72,8 +72,11 @@ export const TransactionsSection = styled.View`
 `;
 
 export const Title = styled.Text`
-  /* color: ${({ theme }) => theme.colors.shape};
-  */
   font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.regular}; 
+`;
+
+export const List = styled.FlatList`
+  margin-top: ${RFValue(18)}px;
+
 `;

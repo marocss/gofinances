@@ -1,4 +1,5 @@
 import React from 'react';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { HighlightCard } from '../../components/HighlightCard';
 import { Footer } from '../../components/HighlightCard/styles';
 import { TransactionCard } from '../../components/TransactionCard';
@@ -14,11 +15,42 @@ import {
   Icon,
   CardsSection,
   TransactionsSection,
-  Title
+  Title,
+  List
 } from './styles';
 
 
 export const Dashboard = () => {
+  const transactionsData = [
+    {
+      title: "Web development",
+      amount: "$ 2,100.00",
+      category: {
+        name: 'Sales',
+        icon: 'dollar-sign'
+      },
+      date: "04/13/2021",
+    },
+    {
+      title: "Web development",
+      amount: "$ 2,100.00",
+      category: {
+        name: 'Sales',
+        icon: 'dollar-sign'
+      },
+      date: "04/13/2021",
+    },
+    {
+      title: "Web development",
+      amount: "$ 2,100.00",
+      category: {
+        name: 'Sales',
+        icon: 'dollar-sign'
+      },
+      date: "04/13/2021",
+    },
+  ];
+
   return (
     <Container>
       <Header>
@@ -59,7 +91,16 @@ export const Dashboard = () => {
 
       <TransactionsSection>
         <Title>Transactions</Title>
-        <TransactionCard />
+        <List 
+          data={transactionsData}
+          renderItem={({ item }) => <TransactionCard data={item} />} 
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: RFValue(80)
+          }}
+        />
+
+        
       </TransactionsSection>
     </Container>
   );
