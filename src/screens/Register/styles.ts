@@ -36,3 +36,12 @@ export const InputSection = styled.View`
   /* margin-top: 24px; */
   /* margin-top: ${RFValue(21)}px; */
 `;
+
+export const TransactionTypeButtonSection = styled.View`
+  /* padding: 0 ${RFValue(20)}px; */
+  /* margin-top: 24px; */
+  /* margin-top: ${RFValue(21)}px; */
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 8px;
+`;
