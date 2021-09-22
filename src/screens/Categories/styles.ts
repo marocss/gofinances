@@ -52,7 +52,7 @@ export const Name = styled.Text`
 export const Separator = styled.View`
   width: 100%;
   height: 1px;
-  background-color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.text_light};
 `;
 
 export const Footer = styled.View`

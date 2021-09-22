@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Modal } from 'react-native';
+import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
+import * as Yup from 'yup'
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Categories } from '../Categories';
 import Button from '../../components/Forms/Button';
 import { HookFormInput } from '../../components/Forms/HookFormInput';
@@ -22,6 +24,15 @@ interface FormData {
   price: string;
 }
 
+const schema = Yup.object().shape({
+  name: Yup.string().required('Name field is required.'),
+  price: Yup.number()
+    .required('Price field is required.')
+    .typeError('Inform a numeric value')
+    .positive('Price value can\'t be negative')
+}).required()
+
+
 export const Register = () => {
   const [transactionTypeSelected, setTransactionTypeSelected] = useState('')
   const [hasSelectedTransactionType, setHasSelectedTransactionType] = useState(false)
@@ -33,8 +44,11 @@ export const Register = () => {
 
   const {
     control,
-    handleSubmit
-  } = useForm()
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
+  })
 
   function handleTransactionSelection(type: 'income' | 'outcome') {
     setTransactionTypeSelected(type)
@@ -50,6 +64,15 @@ export const Register = () => {
   }
 
   function handleRegister(form: FormData) {
+    if (!transactionTypeSelected) {
+      // TODO: use react hook form
+      return Alert.alert('Please select the transaction type')
+    }
+
+    if (category.key === 'category') {
+      return Alert.alert('Please select a category')
+    }
+
     const data = {
       name: form.name,
       price: form.price,
@@ -61,57 +84,66 @@ export const Register = () => {
   }
 
   return (
-    <Container>
-      <Header>
-        <Title>Registry</Title>
-      </Header>
-      <Form>
-        <InputSection>
-          <Label text="Name" />
-          <HookFormInput
-            placeholder="Name"
-            name="name"
-            control={control}
-          />
-
-          <Label text="Price" />
-          <HookFormInput
-            placeholder="Price"
-            name="price"
-            control={control}
-          />
-
-          <TransactionTypeButtonSection>
-            <TransactionTypeButton 
-              type="income" 
-              text="Income"
-              onPress={() => handleTransactionSelection('income')}
-              isActive={transactionTypeSelected === 'income'}
-              hasSelectedTransactionType={hasSelectedTransactionType}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <Header>
+          <Title>Registry</Title>
+        </Header>
+        <Form>
+          <InputSection>
+            <Label text="Name" />
+            <HookFormInput
+              placeholder="Name"
+              name="name"
+              control={control} // https://github.com/react-hook-form/resolvers/issues/97#issuecomment-923595362
+              autoCapitalize="sentences"
+              autoCorrect={false}
+              clearButtonMode="while-editing"
+              error={errors.name && errors.name.message}
             />
-            <TransactionTypeButton 
-              type="outcome" 
-              text="Outcome"
-              onPress={() => handleTransactionSelection('outcome')}
-              isActive={transactionTypeSelected === 'outcome'}
-              hasSelectedTransactionType={hasSelectedTransactionType}
-            />
-          </TransactionTypeButtonSection>
-          <Selector 
-            text={category.name} 
-            onPress={handleOpenCategoriesModal}
-          />
-        </InputSection>
-        <Button text="Submit" onPress={handleSubmit(handleRegister)} />
-      </Form>
 
-      <Modal visible={isModalOpen}>
-        <Categories 
-          category={category}
-          setCategory={setCategory}
-          closeSelectCategory={handleCloseCategoriesModal}
-        />
-      </Modal>
-    </Container>
+            <Label text="Price" />
+            <HookFormInput
+              placeholder="Price"
+              name="price"
+              control={control}
+              keyboardType="numeric"
+              error={errors.price && errors.price.message}
+
+            />
+
+            <TransactionTypeButtonSection>
+              <TransactionTypeButton 
+                type="income" 
+                text="Income"
+                onPress={() => handleTransactionSelection('income')}
+                isActive={transactionTypeSelected === 'income'}
+                hasSelectedTransactionType={hasSelectedTransactionType}
+              />
+              <TransactionTypeButton 
+                type="outcome" 
+                text="Outcome"
+                onPress={() => handleTransactionSelection('outcome')}
+                isActive={transactionTypeSelected === 'outcome'}
+                hasSelectedTransactionType={hasSelectedTransactionType}
+              />
+            </TransactionTypeButtonSection>
+            <Selector 
+              text={category.name} 
+              onPress={handleOpenCategoriesModal}
+            />
+          </InputSection>
+          <Button text="Submit" onPress={handleSubmit(handleRegister)} />
+        </Form>
+
+        <Modal visible={isModalOpen}>
+          <Categories 
+            category={category}
+            setCategory={setCategory}
+            closeSelectCategory={handleCloseCategoriesModal}
+          />
+        </Modal>
+      </Container>
+    </TouchableWithoutFeedback>
   )
 }
