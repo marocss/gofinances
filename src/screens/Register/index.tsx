@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Modal } from 'react-native';
 import Button from '../../components/Forms/Button';
+import { HookFormInput } from '../../components/Forms/HookFormInput';
 import { Input } from '../../components/Forms/Input';
 import { Label } from '../../components/Forms/Label';
 import Selector from '../../components/Forms/Selector';
@@ -16,6 +18,11 @@ import {
   TransactionTypeButtonSection 
 } from './styles';
 
+interface FormData {
+  name: string;
+  price: string;
+}
+
 export const Register = () => {
   const [transactionTypeSelected, setTransactionTypeSelected] = useState('')
   const [hasSelectedTransactionType, setHasSelectedTransactionType] = useState(false)
@@ -24,6 +31,13 @@ export const Register = () => {
     key: 'category',
     name: 'Category',
   })
+  // const [name, setName] = useState('')
+  // const [price, setPrice] = useState('')
+
+  const {
+    control,
+    handleSubmit
+  } = useForm()
 
   function handleTransactionSelection(type: 'income' | 'outcome') {
     setTransactionTypeSelected(type)
@@ -38,6 +52,17 @@ export const Register = () => {
     setIsModalOpen(false)
   }
 
+  function handleRegister(form: FormData) {
+    const data = {
+      name: form.name,
+      price: form.price,
+      transactionTypeSelected,
+      category: category.key
+    }
+
+    console.log(data);
+  }
+
   return (
     <Container>
       <Header>
@@ -46,9 +71,25 @@ export const Register = () => {
       <Form>
         <InputSection>
           <Label text="Name" />
-          <Input placeholder="Name" />
+          <HookFormInput
+            placeholder="Name"
+            name="name"
+            control={control}
+          />
+          {/* <Input 
+            placeholder="Name"
+            onChangeText={setName}
+          /> */}
           <Label text="Price" />
-          <Input placeholder="Price" />
+          <HookFormInput
+            placeholder="Price"
+            name="price"
+            control={control}
+          />
+          {/* <Input 
+            placeholder="Price"
+            onChangeText={setPrice}
+          /> */}
 
           <TransactionTypeButtonSection>
             <TransactionTypeButton 
@@ -71,7 +112,7 @@ export const Register = () => {
             onPress={handleOpenCategoriesModal}
           />
         </InputSection>
-        <Button text="Submit" />
+        <Button text="Submit" onPress={handleSubmit(handleRegister)} />
       </Form>
 
       <Modal visible={isModalOpen}>
