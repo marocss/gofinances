@@ -3,6 +3,10 @@ import { Feather } from '@expo/vector-icons'
 import { Pressable } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+interface SelectorTextProps {
+  hasSelected: boolean;
+}
+
 export const Container = styled(Pressable)`
   background-color: ${({ theme }) => theme.colors.shape};
   flex-direction: row;
@@ -15,10 +19,11 @@ export const Container = styled(Pressable)`
 
 `;
 
-export const Text = styled.Text`
+export const Text = styled.Text<SelectorTextProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
-  color: ${({ theme }) => theme.colors.text};
-  /* font-size: ${RFValue(14)}; */
+  color: ${({ hasSelected, theme }) => 
+    hasSelected ? theme.colors.title : theme.colors.text
+  };
   font-size: ${RFValue(12)}px;
   `;
 
