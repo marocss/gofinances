@@ -1,7 +1,7 @@
-import { TouchableOpacity, Pressable  } from 'react-native';
+import { Pressable  } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled, { css } from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
-import { RFValue } from 'react-native-responsive-fontsize';
 
 interface IconProps {
   type: 'income' | 'outcome'
@@ -43,18 +43,14 @@ export const Container = styled(Pressable)<ContainerProps>`
 `;
 
 export const Icon = styled(Feather)<IconProps>`
-  /* font-size: ${RFValue(24)}; */
   font-size: ${RFValue(21)}px;
-  /* margin-right: ${RFValue(12)}; */
   margin-right: ${RFValue(11)}px;
-
   color: ${({ theme, type }) => 
     type === 'income' ? theme.colors.correct : theme.colors.wrong
   };
 `;
 
 export const Text = styled.Text`
-  /* font-size: ${RFValue(14)}; */
   font-size: ${RFValue(12)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
 `;

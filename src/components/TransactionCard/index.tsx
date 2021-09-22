@@ -1,7 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
-
-import { Container, Title, Amount, Footer, Category, Icon, CategoryName, Date } from './styles';
+import { 
+  Container, 
+  Title, 
+  Amount, 
+  Footer, 
+  Category, 
+  Icon, 
+  CategoryName, 
+  Date } from './styles';
 
 interface Category {
   name: string;

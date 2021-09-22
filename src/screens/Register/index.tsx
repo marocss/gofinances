@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Modal } from 'react-native';
+import { Categories } from '../Categories';
 import Button from '../../components/Forms/Button';
 import { HookFormInput } from '../../components/Forms/HookFormInput';
-import { Input } from '../../components/Forms/Input';
 import { Label } from '../../components/Forms/Label';
 import Selector from '../../components/Forms/Selector';
 import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton';
-import { Categories } from '../Categories';
 
 import { 
   Container, 
@@ -31,8 +30,6 @@ export const Register = () => {
     key: 'category',
     name: 'Category',
   })
-  // const [name, setName] = useState('')
-  // const [price, setPrice] = useState('')
 
   const {
     control,
@@ -76,20 +73,13 @@ export const Register = () => {
             name="name"
             control={control}
           />
-          {/* <Input 
-            placeholder="Name"
-            onChangeText={setName}
-          /> */}
+
           <Label text="Price" />
           <HookFormInput
             placeholder="Price"
             name="price"
             control={control}
           />
-          {/* <Input 
-            placeholder="Price"
-            onChangeText={setPrice}
-          /> */}
 
           <TransactionTypeButtonSection>
             <TransactionTypeButton 
@@ -122,7 +112,6 @@ export const Register = () => {
           closeSelectCategory={handleCloseCategoriesModal}
         />
       </Modal>
-
     </Container>
   )
 }

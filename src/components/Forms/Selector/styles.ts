@@ -1,7 +1,7 @@
-import styled from 'styled-components/native';
-import { Feather } from '@expo/vector-icons'
 import { Pressable } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import styled from 'styled-components/native';
+import { Feather } from '@expo/vector-icons'
 
 interface SelectorTextProps {
   hasSelected: boolean;
@@ -16,7 +16,6 @@ export const Container = styled(Pressable)`
   border-radius: 5px;
   padding: 0 ${RFValue(14)}px;
   margin-top: 16px;
-
 `;
 
 export const Text = styled.Text<SelectorTextProps>`
@@ -25,7 +24,7 @@ export const Text = styled.Text<SelectorTextProps>`
     hasSelected ? theme.colors.title : theme.colors.text
   };
   font-size: ${RFValue(12)}px;
-  `;
+`;
 
 export const Icon = styled(Feather)`
   font-size: ${RFValue(18)}px;

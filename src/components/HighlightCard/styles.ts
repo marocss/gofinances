@@ -1,6 +1,6 @@
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled, { css } from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
-import { RFValue } from 'react-native-responsive-fontsize';
 
 interface TypeProps {
   type: 'up' | 'down' | 'total'
@@ -49,10 +49,8 @@ export const Icon = styled(Feather)<TypeProps>`
 export const Footer = styled.View``;
 
 export const Amount = styled.Text<TypeProps>`
-  /* font-size: 32px; */
   font-size: ${RFValue(30)}px;
   font-family: ${({ theme }) => theme.fonts.medium};
-  /* color: ${({ theme }) => theme.colors.title}; */
   color: ${({ theme, type }) => 
     (type === 'total') ? theme.colors.shape : theme.colors.title
   };
@@ -62,7 +60,6 @@ export const Amount = styled.Text<TypeProps>`
 export const LastTransaction = styled.Text<TypeProps>`
   font-size: ${RFValue(11)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
-  /* color: ${({ theme }) => theme.colors.text}; */
   color: ${({ theme, type }) => 
     (type === 'total') ? theme.colors.shape : theme.colors.text
   };

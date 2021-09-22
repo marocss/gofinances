@@ -9,7 +9,6 @@ import {
   LastTransaction
  } from './styles';
 
- 
 interface Props {
   title: string;
   amount: string;

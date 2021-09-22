@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Container, Text, Icon } from './styles';
 
 interface Props {

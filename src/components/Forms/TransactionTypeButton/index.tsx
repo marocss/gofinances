@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacityProps, PressableProps } from 'react-native';
-
+import { PressableProps } from 'react-native';
 import { Container, Icon, Text } from './styles';
 
 interface Props extends PressableProps {

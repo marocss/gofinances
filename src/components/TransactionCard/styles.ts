@@ -1,6 +1,6 @@
+import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 interface TransactionProps {
   type: 'income' | 'outcome'
@@ -9,9 +9,7 @@ interface TransactionProps {
 export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.shape};
   border-radius: 7px;
-
   padding: ${RFValue(17)}px ${RFValue(19)}px;
-  
   margin-bottom: ${RFValue(14)}px;
 `;
 

@@ -1,9 +1,9 @@
-import styled from 'styled-components/native';
-import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
-import { Feather } from '@expo/vector-icons'
-
-import { ListProps } from '.'
 import { FlatList } from 'react-native';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import styled from 'styled-components/native';
+import { Feather } from '@expo/vector-icons'
+import { ListProps } from '.'
+
 
 export const Container = styled.View`
   flex: 1;
@@ -86,5 +86,4 @@ export const List = styled(FlatList as new () => FlatList<ListProps>).attrs({
 
 })`
   margin-top: ${RFValue(18)}px;
-
 `;
