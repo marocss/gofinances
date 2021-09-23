@@ -1,8 +1,9 @@
 import React from 'react';
 import { PressableProps } from 'react-native';
-import { Container, Icon, Text } from './styles';
+import { RectButtonProps } from 'react-native-gesture-handler';
+import { Container, Icon, Text, TypeButton } from './styles';
 
-interface Props extends PressableProps {
+interface Props extends RectButtonProps {
   text: string;
   type: 'income' | 'outcome';
   isActive: boolean;
@@ -24,16 +25,23 @@ export const TransactionTypeButton = ({
 
   return (
     <Container 
-      {...rest} 
-      isActive={isActive} 
-      type={type} 
+      // isActive={isActive} 
+      // type={type} 
       hasSelectedTransactionType={hasSelectedTransactionType} 
     >
-      <Icon 
-        name={iconOptions[type]} 
-        type={type}
-      />
-      <Text>{text}</Text>
+      <TypeButton
+        {...rest}
+        isActive={isActive} 
+        type={type} 
+        hasSelectedTransactionType={hasSelectedTransactionType} 
+      >
+        <Icon 
+          name={iconOptions[type]} 
+          type={type}
+        />
+
+        <Text>{text}</Text>
+      </TypeButton>
     </Container>
   )
 }

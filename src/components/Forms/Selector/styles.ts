@@ -2,12 +2,13 @@ import { Pressable } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
+import { RectButton } from 'react-native-gesture-handler';
 
 interface SelectorTextProps {
   hasSelected: boolean;
 }
 
-export const Container = styled(Pressable)`
+export const Container = styled(RectButton)`
   background-color: ${({ theme }) => theme.colors.shape};
   flex-direction: row;
   height: ${RFValue(50)}px;

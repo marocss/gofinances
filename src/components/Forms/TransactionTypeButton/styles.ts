@@ -2,28 +2,43 @@ import { Pressable  } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled, { css } from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
+import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
 interface IconProps {
   type: 'income' | 'outcome'
 }
 
-interface ContainerProps {
+interface TypeButtonProps {
   isActive: boolean;
   type: 'income' | 'outcome';
   hasSelectedTransactionType: boolean;
 }
 
-export const Container = styled(Pressable)<ContainerProps>`
-  align-items: center;
-  border-width: ${({ hasSelectedTransactionType }) => 
-    hasSelectedTransactionType ? 0 : 1.5 }px;
+interface TypeButtonProps {
+  isActive: boolean;
+  type: 'income' | 'outcome';
+  hasSelectedTransactionType: boolean;
+}
+
+interface ContainerProps {
+  hasSelectedTransactionType: boolean;
+}
+
+export const Container = styled.View<ContainerProps>`
+  border-width: 1.5px;
   border-style: solid;
-  border-color: ${({ theme }) => theme.colors.text_light};
+  border-color: ${({ hasSelectedTransactionType, theme }) => 
+    hasSelectedTransactionType ? theme.colors.background : theme.colors.text_light};
   border-radius: 5px;
+  width: 49%;
+`;
+
+export const TypeButton = styled(RectButton)<TypeButtonProps>`
+  align-items: center;
   flex-direction: row;
   height: ${RFValue(50)}px;
   justify-content: center;
-  width: 49%;
+  width: 100%;
   opacity: ${({ hasSelectedTransactionType }) => 
     hasSelectedTransactionType ? 0.5 : 1 };
   
@@ -40,7 +55,7 @@ export const Container = styled(Pressable)<ContainerProps>`
       opacity: 1;
     `
   }
-`;
+`
 
 export const Icon = styled(Feather)<IconProps>`
   font-size: ${RFValue(21)}px;

@@ -14,7 +14,8 @@ import {
   CardsSection,
   TransactionsSection,
   Title,
-  List
+  List,
+  LogoutButton,
 } from './styles';
 
 export interface ListProps extends TransactionCardProps {
@@ -63,7 +64,11 @@ export const Dashboard = () => {
       <Header>
         <HeaderFirstSection>
           <User>
-            <Avatar source={{ uri: 'https://avatars.githubusercontent.com/u/34945925?v=4' }} />
+            <Avatar 
+              source={{ 
+                uri: 'https://avatars.githubusercontent.com/u/34945925?v=4' 
+              }} 
+            />
 
             <TextArea>
               <Greeting>Yo, </Greeting>
@@ -71,7 +76,9 @@ export const Dashboard = () => {
             </TextArea>
           </User>
 
-          <Icon name="power"/>
+          <LogoutButton onPress={() => {}}>
+            <Icon name="power"/>
+          </LogoutButton>
         </HeaderFirstSection>
       </Header>
 

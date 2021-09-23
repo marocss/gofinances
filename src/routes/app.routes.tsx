@@ -5,11 +5,13 @@ import { Dashboard } from '../screens/Dashboard';
 import { useTheme } from 'styled-components';
 import { MaterialIcons } from '@expo/vector-icons'
 
+
 const { Navigator, Screen } = createBottomTabNavigator()
 
 export const AppRoutes = () => {
   const theme = useTheme() 
-
+  // const isTabBarHidden = Platform.OS === 'ios' ? false : true
+  
   return (
     <Navigator
       initialRouteName="List"
@@ -30,12 +32,17 @@ export const AppRoutes = () => {
               color={color}
             />
           )),
-          tabBarLabelPosition: 'beside-icon'
+          tabBarLabelPosition: 'beside-icon',
+          // tabBarHideOnKeyboard: true,
+          // tabBarStyle: {
+          //   position: 'absolute'
+          // }
         }}
       />
       <Screen 
         name="Register"
         component={Register}
+        
         options={{
           tabBarActiveTintColor: theme.colors.two,
           tabBarInactiveTintColor: theme.colors.text,
@@ -46,10 +53,14 @@ export const AppRoutes = () => {
               color={color}
             />
           )),
-          tabBarLabelPosition: 'beside-icon'
+          tabBarLabelPosition: 'beside-icon',
+          // tabBarHideOnKeyboard: isTabBarHidden
+          // tabBarStyle: {
+          //   position: 'absolute'
+          // }
         }}
       />
-      <Screen 
+      {/* <Screen 
         name="Summary"
         component={Register}
         options={{
@@ -64,7 +75,7 @@ export const AppRoutes = () => {
           )),
           tabBarLabelPosition: 'beside-icon'
         }}
-      />
+      /> */}
     </Navigator>
   )
 }
