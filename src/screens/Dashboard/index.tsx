@@ -79,19 +79,19 @@ export const Dashboard = () => {
         <HighlightCard 
           title="Income" 
           amount="$ 3,400.00" 
-          lastTransaction="Last income was on april 13th"
+          lastTransaction="Last income was on April 13"
           type="up"
         />
         <HighlightCard 
           title="Outcome" 
           amount="$ 400.00" 
-          lastTransaction="Last outcome was on april 2nd"
+          lastTransaction="Last outcome was on April 2"
           type="down"
         />
         <HighlightCard 
           title="Total" 
           amount="$ 23,657.02" 
-          lastTransaction="Between 1st and 19th"
+          lastTransaction="Between April 1 and April 19"
           type="total"
         />
       </CardsSection>

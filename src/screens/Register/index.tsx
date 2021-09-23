@@ -95,7 +95,7 @@ export const Register = () => {
             <HookFormInput
               placeholder="Name"
               name="name"
-              control={control} // https://github.com/react-hook-form/resolvers/issues/97#issuecomment-923595362
+              control={control}
               autoCapitalize="sentences"
               autoCorrect={false}
               clearButtonMode="while-editing"

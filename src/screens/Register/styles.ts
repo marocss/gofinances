@@ -25,7 +25,7 @@ export const Form = styled.View`
   flex: 1;
   padding: ${RFValue(20)}px;
   padding-bottom: 0;
-  margin-bottom: ${RFValue(80)}px;
+  margin-bottom: ${RFValue(33)}px;
   justify-content: space-between;
 `;
 

@@ -79,11 +79,7 @@ export const Title = styled.Text`
 `;
 
 export const List = styled(FlatList as new () => FlatList<ListProps>).attrs({
-  contentContainerStyle: {
-    paddingBottom: RFValue(80),
-  },
   showsVerticalScrollIndicator: false
-
 })`
   margin-top: ${RFValue(18)}px;
 `;

@@ -6,6 +6,8 @@ import theme from './src/global/styles/theme';
 import { Categories } from './src/screens/Categories';
 import { Dashboard } from './src/screens/Dashboard';
 import { Register } from './src/screens/Register';
+import { NavigationContainer } from '@react-navigation/native';
+import { AppRoutes } from './src/routes/app.routes';
 
 
 const App = () => {
@@ -21,9 +23,12 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <Dashboard /> */}
-      <Register />
-      {/* <Categories /> */}
+      <NavigationContainer>
+        <AppRoutes />
+        {/* <Dashboard /> */}
+        {/* <Register /> */}
+        {/* <Categories /> */}
+      </NavigationContainer>
     </ThemeProvider>
   );
 }

@@ -58,5 +58,6 @@ export const Separator = styled.View`
 export const Footer = styled.View`
   width: 100%;
   padding: 0 ${RFValue(20)}px;
-  margin-bottom: ${RFValue(80)}px;
+  margin-bottom: ${RFValue(60)}px;
+  /* margin-bottom: ${RFValue(102)}px; */
 `;
