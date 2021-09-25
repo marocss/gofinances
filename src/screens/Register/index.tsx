@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
 import * as Yup from 'yup'
@@ -18,6 +18,7 @@ import {
   InputSection, 
   TransactionTypeButtonSection 
 } from './styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface FormData {
   name: string;
@@ -50,6 +51,25 @@ export const Register = () => {
     resolver: yupResolver(schema)
   })
 
+  const collectionKey = '@gofinances:transactions';
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await AsyncStorage.getItem(collectionKey)
+        if (data) {
+          const jsonData = JSON.parse(data)
+          console.log('async storage data: ', jsonData);
+        } else {
+          throw new Error("No data");
+        }
+      } catch (error) {
+        console.log(error);
+        Alert.alert('Sorry, something went wrong.')
+      }
+    })()
+  }, [])
+
   function handleTransactionSelection(type: 'income' | 'outcome') {
     setTransactionTypeSelected(type)
     setHasSelectedTransactionType(true)
@@ -80,7 +100,20 @@ export const Register = () => {
       category: category.key
     }
 
-    console.log(data);
+    // console.log(data);
+
+    try {
+      // store
+      // const collectionKey = '@gofinances:transactions';
+
+      (async () => {
+        await AsyncStorage.setItem(collectionKey, JSON.stringify(data))
+      })()
+
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Sorry, something went wrong.')
+    }
   }
 
   return (
