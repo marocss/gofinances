@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
+import uuid from 'react-native-uuid'
+import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Categories } from '../Categories';
@@ -9,6 +11,7 @@ import { HookFormInput } from '../../components/Forms/HookFormInput';
 import { Label } from '../../components/Forms/Label';
 import Selector from '../../components/Forms/Selector';
 import { TransactionTypeButton } from '../../components/Forms/TransactionTypeButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { 
   Container, 
@@ -18,7 +21,7 @@ import {
   InputSection, 
   TransactionTypeButtonSection 
 } from './styles';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 interface FormData {
   name: string;
@@ -43,10 +46,13 @@ export const Register = () => {
     name: 'Category',
   })
 
+  const navigation = useNavigation()
+
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(schema)
   })
@@ -99,6 +105,8 @@ export const Register = () => {
     }
 
     const newTransaction = {
+      id: String(uuid.v4()),
+      date: new Date(),
       name: form.name,
       price: form.price,
       transactionTypeSelected,
@@ -116,6 +124,17 @@ export const Register = () => {
         ]
 
         await AsyncStorage.setItem(collectionKey, JSON.stringify(updatedCollection))
+
+        reset()
+        setHasSelectedTransactionType(false)
+        setTransactionTypeSelected('')
+        setIsModalOpen(false)
+        setCategory({
+          key: 'category',
+          name: 'Category',
+        })
+
+        navigation.navigate('List')
       })()
 
     } catch (error) {
