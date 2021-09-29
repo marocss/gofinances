@@ -57,12 +57,17 @@ export const Register = () => {
     (async () => {
       try {
         const data = await AsyncStorage.getItem(collectionKey)
+
         if (data) {
           const jsonData = JSON.parse(data)
           console.log('async storage data: ', jsonData);
         } else {
-          throw new Error("No data");
+          console.log('no data');
         }
+
+        // delete items
+        // await AsyncStorage.removeItem(collectionKey)
+
       } catch (error) {
         console.log(error);
         Alert.alert('Sorry, something went wrong.')
@@ -93,21 +98,24 @@ export const Register = () => {
       return Alert.alert('Please select a category')
     }
 
-    const data = {
+    const newTransaction = {
       name: form.name,
       price: form.price,
       transactionTypeSelected,
       category: category.key
     }
 
-    // console.log(data);
-
     try {
-      // store
-      // const collectionKey = '@gofinances:transactions';
-
       (async () => {
-        await AsyncStorage.setItem(collectionKey, JSON.stringify(data))
+        const transactions = await AsyncStorage.getItem(collectionKey)
+        const transactionsJson = transactions ? JSON.parse(transactions) : [];
+
+        const updatedCollection = [
+          ...transactionsJson,
+          newTransaction
+        ]
+
+        await AsyncStorage.setItem(collectionKey, JSON.stringify(updatedCollection))
       })()
 
     } catch (error) {

@@ -39,6 +39,7 @@ export const TypeButton = styled(RectButton)<TypeButtonProps>`
   height: ${RFValue(50)}px;
   justify-content: center;
   width: 100%;
+  border-radius: 5px;
   opacity: ${({ hasSelectedTransactionType }) => 
     hasSelectedTransactionType ? 0.5 : 1 };
   
