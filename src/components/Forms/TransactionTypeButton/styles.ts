@@ -1,4 +1,4 @@
-import { Pressable  } from 'react-native';
+import { Button, Pressable  } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled, { css } from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
@@ -33,7 +33,7 @@ export const Container = styled.View<ContainerProps>`
   width: 49%;
 `;
 
-export const TypeButton = styled(RectButton)<TypeButtonProps>`
+export const TypeButton = styled(Pressable)<TypeButtonProps>`
   align-items: center;
   flex-direction: row;
   height: ${RFValue(50)}px;

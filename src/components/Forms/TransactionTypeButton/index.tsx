@@ -3,7 +3,8 @@ import { PressableProps } from 'react-native';
 import { RectButtonProps } from 'react-native-gesture-handler';
 import { Container, Icon, Text, TypeButton } from './styles';
 
-interface Props extends RectButtonProps {
+// interface Props extends RectButtonProps {
+interface Props extends PressableProps {
   text: string;
   type: 'income' | 'outcome';
   isActive: boolean;

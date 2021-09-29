@@ -8,7 +8,8 @@ interface SelectorTextProps {
   hasSelected: boolean;
 }
 
-export const Container = styled(RectButton)`
+// export const Container = styled(RectButton)`
+export const Container = styled(Pressable)`
   background-color: ${({ theme }) => theme.colors.shape};
   flex-direction: row;
   height: ${RFValue(50)}px;

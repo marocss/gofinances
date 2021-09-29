@@ -109,7 +109,7 @@ export const Register = () => {
       date: new Date(),
       name: form.name,
       price: form.price,
-      transactionTypeSelected,
+      type: transactionTypeSelected,
       category: category.key
     }
 
@@ -145,7 +145,7 @@ export const Register = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Container>
+      <Container accessible>
         <Header>
           <Title>Registry</Title>
         </Header>

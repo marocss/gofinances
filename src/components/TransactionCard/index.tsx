@@ -8,17 +8,19 @@ import {
   Icon, 
   CategoryName, 
   Date } from './styles';
+  import { categories } from '../../utils/categories'
 
-interface Category {
-  name: string;
-  icon: string;
-}
+
+// interface Category {
+//   name: string;
+//   icon: string;
+// }
 
 export interface TransactionCardProps {
   type: 'income' | 'outcome'
-  title: string;
-  amount: string;
-  category: Category;
+  name: string;
+  price: string;
+  category: string;
   date: string;
 }
 
@@ -27,12 +29,13 @@ interface Props {
 }
 
 export const TransactionCard = ({ data }: Props) => {
-  const { type, title, amount, category, date} = data
+  const category = categories.filter(item => item.key === data.category)[0]
 
+  const { type, name, price, date} = data
   return (
     <Container>
-      <Title>{title}</Title>
-      <Amount type={type}>{type === 'outcome' && '- '} {amount}</Amount>
+      <Title>{name}</Title>
+      <Amount type={type}>{type === 'outcome' && '- '} {price}</Amount>
 
       <Footer>
         <Category>

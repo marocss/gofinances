@@ -2,6 +2,9 @@ import React from 'react';
 import AppLoading from 'expo-app-loading'
 import { ThemeProvider } from 'styled-components/native';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
+import 'intl'
+import 'intl/locale-data/jsonp/en-US'
+import 'intl/locale-data/jsonp/pt-BR'
 import theme from './src/global/styles/theme';
 import { Categories } from './src/screens/Categories';
 import { Dashboard } from './src/screens/Dashboard';
