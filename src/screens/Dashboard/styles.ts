@@ -87,3 +87,9 @@ export const List = styled(FlatList as new () => FlatList<ListProps>).attrs({
 })`
   margin-top: ${RFValue(18)}px;
 `;
+
+export const LoadingContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;

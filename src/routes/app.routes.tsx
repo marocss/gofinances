@@ -14,13 +14,13 @@ export const AppRoutes = () => {
   
   return (
     <Navigator
-      initialRouteName="List"
+      initialRouteName="Dashboard"
       screenOptions={{
         headerShown: false
       }}
     >
       <Screen 
-        name="List"
+        name="Dashboard"
         component={Dashboard}
         options={{
           tabBarActiveTintColor: theme.colors.two,

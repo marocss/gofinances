@@ -134,7 +134,7 @@ export const Register = () => {
           name: 'Category',
         })
 
-        navigation.navigate('List')
+        navigation.navigate('Dashboard')
       })()
 
     } catch (error) {
