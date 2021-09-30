@@ -29,6 +29,7 @@ export interface ListProps extends TransactionCardProps {
 
 interface Card {
   amount: string;
+  lastTransactionDate: string;
 }
 
 interface Highlights {
@@ -85,26 +86,55 @@ export const Dashboard = () => {
         }
       }
     )
-    const amountLeft = totalIncome - totalOutcome
 
+    const amountLeft = totalIncome - totalOutcome
+    const lastIncomeTransactionDate = new Date(transactions
+      .filter(transaction => transaction.type === 'income')[0].date)
+      .toLocaleDateString('en-US', { 
+        weekday: "short", 
+        month: 'long', 
+        day: '2-digit' }
+      )
+
+    const lastOutcomeTransactionDate = new Date(transactions
+      .filter(transaction => transaction.type === 'outcome')[0].date)
+      .toLocaleDateString('en-US', { 
+        weekday: "short", 
+        month: 'long', 
+        day: '2-digit' }
+      )
+
+    const lastTransactionDay = new Date(transactions[0].date)
+      .toLocaleDateString('en-US', {
+        month: 'short',
+        day: '2-digit',
+      })
+    const lastTransactionMonth = new Date(transactions[0].date)
+      .toLocaleDateString('en-US', {
+        month: 'short',
+      })
+    
     setHighlights({
       income: {
         amount: totalIncome.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD'
-        })
+        }),
+        lastTransactionDate: `Last income was ${lastIncomeTransactionDate}`
       },
       outcome: {
         amount: totalOutcome.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD'
-        })
+        }),
+        lastTransactionDate: `Last outcome was ${lastOutcomeTransactionDate}`
       }, 
       residue: {
         amount: amountLeft.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD'
-        })
+        }),
+        lastTransactionDate: `Between ${lastTransactionMonth} 01 and ${lastTransactionDay}`
       }
     })
     setTransactions(transactions)
@@ -161,19 +191,19 @@ export const Dashboard = () => {
         <HighlightCard 
           title="Income" 
           amount={highlights.income.amount} 
-          lastTransaction="Last income was on April 13"
+          lastTransaction={highlights.income.lastTransactionDate}
           type="up"
-        />
+          />
         <HighlightCard 
           title="Outcome" 
           amount={highlights.outcome.amount}
-          lastTransaction="Last outcome was on April 2"
+          lastTransaction={highlights.outcome.lastTransactionDate}
           type="down"
         />
         <HighlightCard 
           title="Total" 
           amount={highlights.residue.amount}
-          lastTransaction="Between April 1 and April 19"
+          lastTransaction={highlights.residue.lastTransactionDate}
           type="total"
         />
       </CardsSection>
