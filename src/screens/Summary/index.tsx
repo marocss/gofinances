@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react';
 import {  View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -12,7 +13,13 @@ import {
   Header,
   Title,
   Main,
-  ChartSection
+  ChartSection,
+  NavSection,
+  PreviousButton,
+  PreviousButtonIcon,
+  Month,
+  NextButton,
+  NextButtonIcon
 } from './styles';
 
 interface Transaction {
@@ -71,7 +78,7 @@ export const Summary = () => {
 
       if (totalCategoryOutcome === 0) return
 
-      const percentOfTotal = `${(totalCategoryOutcome / totalOutcome * 100).toFixed(2)}%`
+      const percentOfTotal = `${(totalCategoryOutcome / totalOutcome * 100).toFixed(0)}%`
       let title = category.name
       const total = totalCategoryOutcome.toFixed(2)
       // .toLocaleString('en-US', {
@@ -110,17 +117,41 @@ export const Summary = () => {
       </Header>
 
 
-      <Main>
+      <Main
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          flex: 1,
+          paddingHorizontal: 24,
+          paddingBottom: useBottomTabBarHeight() + RFValue(8),
+        }}
+      >
+        <NavSection>
+          <PreviousButton>
+            <PreviousButtonIcon name="chevron-left" />
+          </PreviousButton>
+          
+          <Month>
+            September, 2021
+          </Month>
+
+          <NextButton>
+            <NextButtonIcon name="chevron-right" />
+          </NextButton>
+        </NavSection>
+
+
         <ChartSection>
           <VictoryPie 
             data={categoriesSummary}
+            height={330}
+            radius={128}
             x="percentOfTotal"
             y="amount"
-            labelRadius={70}
+            labelRadius={60}
             colorScale={categoriesSummary.map(category => category.color)}
             style={{
               labels: {
-                fontSize: RFValue(16),
+                fontSize: RFValue(14),
                 fontWeight: 'bold',
                 fill: theme.colors.shape
               }
