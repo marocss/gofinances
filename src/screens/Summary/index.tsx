@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { addMonths, format, subMonths } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import {  View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -44,15 +45,24 @@ const collectionKey = '@gofinances:transactions';
 
 export const Summary = () => {
   const [categoriesSummary, setCategoriesSummary] = useState<CategorySummaryItem[]>([]);
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
   const theme = useTheme()
+
+  const handleDateSelection = (action: 'next' | 'previous') => {
+    if (action === 'next') setSelectedDate(addMonths(selectedDate, 1))
+    else if (action === 'previous') setSelectedDate(subMonths(selectedDate, 1))
+  }
 
   const loadData = async () => {
     const transactionsCollection = await AsyncStorage.getItem(collectionKey)
     const transactions = transactionsCollection ? JSON.parse(transactionsCollection) : [];
 
     const outcomeTransactions = transactions.filter(
-      (transaction: Transaction) => transaction.type === 'outcome'
+      (transaction: Transaction) => 
+        transaction.type === 'outcome' &&
+        new Date(transaction.date).getMonth() === selectedDate.getMonth() &&
+        new Date(transaction.date).getFullYear() === selectedDate.getFullYear()
     )
 
     const totalOutcome = outcomeTransactions.reduce(
@@ -106,7 +116,7 @@ export const Summary = () => {
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [selectedDate])
 
 
 
@@ -126,15 +136,19 @@ export const Summary = () => {
         }}
       >
         <NavSection>
-          <PreviousButton>
+          <PreviousButton
+            onPress={() => handleDateSelection('previous')}
+          >
             <PreviousButtonIcon name="chevron-left" />
           </PreviousButton>
           
           <Month>
-            September, 2021
+            {format(selectedDate, 'MMMM, yyyy')}
           </Month>
 
-          <NextButton>
+          <NextButton
+            onPress={() => handleDateSelection('next')}          
+          >
             <NextButtonIcon name="chevron-right" />
           </NextButton>
         </NavSection>
