@@ -4,6 +4,7 @@ import { Register } from '../screens/Register';
 import { Dashboard } from '../screens/Dashboard';
 import { useTheme } from 'styled-components';
 import { MaterialIcons } from '@expo/vector-icons'
+import { Summary } from '../screens/Summary';
 
 
 const { Navigator, Screen } = createBottomTabNavigator()
@@ -60,9 +61,9 @@ export const AppRoutes = () => {
           // }
         }}
       />
-      {/* <Screen 
+      <Screen 
         name="Summary"
-        component={Register}
+        component={Summary}
         options={{
           tabBarActiveTintColor: theme.colors.two,
           tabBarInactiveTintColor: theme.colors.text,
@@ -73,9 +74,9 @@ export const AppRoutes = () => {
               color={color}
             />
           )),
-          tabBarLabelPosition: 'beside-icon'
+          tabBarLabelPosition: 'beside-icon',
         }}
-      /> */}
+      />
     </Navigator>
   )
 }
