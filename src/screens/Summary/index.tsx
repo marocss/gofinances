@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import {  View } from 'react-native';
-
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useTheme } from 'styled-components';
+import { VictoryPie } from 'victory-native'
 import { HistoryCard } from '../../components/HistoryCard';
 import { categories } from '../../utils/categories';
 
@@ -9,7 +11,8 @@ import {
   Container,
   Header,
   Title,
-  CategoriesSummarySection,
+  Main,
+  ChartSection
 } from './styles';
 
 interface Transaction {
@@ -23,15 +26,19 @@ interface Transaction {
 interface CategorySummaryItem {
   key: string;
   title: string;
-  amount: string;
+  amountString: string;
+  amount: number;
   currencySymbol: string;
   color: string;
+  percentOfTotal: string;
 }
 
 const collectionKey = '@gofinances:transactions';
 
 export const Summary = () => {
   const [categoriesSummary, setCategoriesSummary] = useState<CategorySummaryItem[]>([]);
+
+  const theme = useTheme()
 
   const loadData = async () => {
     const transactionsCollection = await AsyncStorage.getItem(collectionKey)
@@ -41,47 +48,60 @@ export const Summary = () => {
       (transaction: Transaction) => transaction.type === 'outcome'
     )
 
+    const totalOutcome = outcomeTransactions.reduce(
+      (accumulator: number, transaction: Transaction) => {
+        const value = Number(transaction.price)
+
+        return accumulator + value
+    }, 0)
+
     const totalByCategory: CategorySummaryItem[]  = []
 
     categories.forEach(category => {
-      let totalOutcome = 0
+      let totalCategoryOutcome = 0
       let currentCategory = category.key
 
       outcomeTransactions.forEach((transaction: Transaction) => {
         const transactionCost = Number(transaction.price)
 
         if (transaction.category === currentCategory) {
-          totalOutcome += transactionCost
+          totalCategoryOutcome += transactionCost
         }
       })
 
-      if (totalOutcome === 0) return
+      if (totalCategoryOutcome === 0) return
 
+      const percentOfTotal = `${(totalCategoryOutcome / totalOutcome * 100).toFixed(2)}%`
       let title = category.name
-      const total = totalOutcome.toLocaleString('en-US', {
-        style: 'decimal',
-        minimumFractionDigits: 2
-      })
+      const total = totalCategoryOutcome.toFixed(2)
+      // .toLocaleString('en-US', {
+      //   style: 'decimal',
+      //   minimumFractionDigits: 2
+      // })
       const currencySymbol = '$'
       let color = category.color
 
       totalByCategory.push({
         key: currentCategory,
-        title: title,
-        amount: total,
-        currencySymbol: currencySymbol,
-        color: color,
+        title,
+        amountString: total,
+        amount: totalCategoryOutcome,
+        currencySymbol,
+        color,
+        percentOfTotal,
       })
     })
 
     setCategoriesSummary(totalByCategory)
-    console.log(outcomeTransactions);   
+    console.log('total outcome', totalOutcome);
     console.log(totalByCategory);
   }
 
   useEffect(() => {
     loadData()
   }, [])
+
+
 
   return (
     <Container>
@@ -90,19 +110,36 @@ export const Summary = () => {
       </Header>
 
 
-      <CategoriesSummarySection>
+      <Main>
+        <ChartSection>
+          <VictoryPie 
+            data={categoriesSummary}
+            x="percentOfTotal"
+            y="amount"
+            labelRadius={70}
+            colorScale={categoriesSummary.map(category => category.color)}
+            style={{
+              labels: {
+                fontSize: RFValue(16),
+                fontWeight: 'bold',
+                fill: theme.colors.shape
+              }
+            }}
+          />
+        </ChartSection>
+
         {
           categoriesSummary.map(categorySummaryItem => (
             <HistoryCard
               key={categorySummaryItem.key}
               title={categorySummaryItem.title}
               currencySymbol={categorySummaryItem.currencySymbol}
-              amount={categorySummaryItem.amount}
+              amount={categorySummaryItem.amountString}
               color={categorySummaryItem.color}
             />
           ))
         }
-      </CategoriesSummarySection>
+      </Main>
 
     </Container>
   )

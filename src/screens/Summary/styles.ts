@@ -20,14 +20,19 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(16)}px;
-  `;
+`;
 
-export const CategoriesSummarySection = styled.ScrollView.attrs({
+export const Main = styled.ScrollView.attrs({
   contentContainerStyle: {
     flex: 1,
     paddingHorizontal: 24,
   }
 })`
-  /* flex: 1; */
-  /* background-color: ${({ theme }) => theme.colors.background}; */
+
+`;
+
+export const ChartSection = styled.View`
+  width: 100%;
+  align-items: center;
+  /* padding: 0px ${RFValue(21)}px; */
 `;
