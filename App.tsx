@@ -11,6 +11,7 @@ import { Dashboard } from './src/screens/Dashboard';
 import { Register } from './src/screens/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from './src/routes/app.routes';
+import { StatusBar } from 'react-native';
 
 
 const App = () => {
@@ -27,6 +28,9 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
+        <StatusBar
+          barStyle="light-content"
+        />
         <AppRoutes />
         {/* <Dashboard /> */}
         {/* <Register /> */}

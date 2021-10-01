@@ -1,6 +1,8 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { VictoryContainer } from 'victory-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -24,12 +26,15 @@ export const Title = styled.Text`
 `;
 
 export const Main = styled.ScrollView`
-
+  flex: 1;
 `;
 
 export const ChartSection = styled.View`
   width: 100%;
   align-items: center;
+  justify-content: center;
+  margin-top: ${RFValue(28)}px;
+  margin-bottom: ${RFValue(28)}px;
 `;
 
 export const NavSection = styled.View`
@@ -39,7 +44,7 @@ export const NavSection = styled.View`
   justify-content: space-between;
   align-items: center;
   
-  margin-top: ${RFValue(45)}px;
+  margin-top: ${RFValue(43)}px;
 `;
 
 export const PreviousButton = styled.Pressable`
@@ -61,4 +66,10 @@ export const NextButton = styled.Pressable`
 
 export const NextButtonIcon = styled(Feather)`
   font-size: ${RFValue(21)}px;
+`;
+
+export const LoadingContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;

@@ -66,7 +66,7 @@ export const Register = () => {
 
         if (data) {
           const jsonData = JSON.parse(data)
-          console.log('async storage data: ', jsonData);
+          // console.log('async storage data: ', jsonData);
         } else {
           console.log('no data');
         }

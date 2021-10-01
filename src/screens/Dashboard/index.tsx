@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
-import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect, useScrollToTop } from '@react-navigation/native';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useTheme } from 'styled-components';
 import { HighlightCard } from '../../components/HighlightCard';
@@ -43,6 +43,8 @@ export const Dashboard = () => {
   const [highlights, setHighlights] = useState<Highlights>({} as Highlights);
   const [isLoading, setIsLoading] = useState(true)
 
+  const listRef = useRef(null)
+
   const theme = useTheme() 
 
   const loadTransactions = async () => {
@@ -57,7 +59,7 @@ export const Dashboard = () => {
     let totalIncome = 0
     let totalOutcome = 0
 
-    const transactions: ListProps[] = transactionsCollectionJson.map(
+    const allTransactions: ListProps[] = transactionsCollectionJson.map(
       (item: ListProps) => {
         if (item.type === 'income') {
           totalIncome += Number(item.price)
@@ -88,7 +90,7 @@ export const Dashboard = () => {
     )
 
     const amountLeft = totalIncome - totalOutcome
-    const lastIncomeTransactionDate = new Date(transactions
+    const lastIncomeTransactionDate = new Date(allTransactions
       .filter(transaction => transaction.type === 'income')[0].date)
       .toLocaleDateString('en-US', { 
         weekday: "short", 
@@ -96,7 +98,7 @@ export const Dashboard = () => {
         day: '2-digit' }
       )
 
-    const lastOutcomeTransactionDate = new Date(transactions
+    const lastOutcomeTransactionDate = new Date(allTransactions
       .filter(transaction => transaction.type === 'outcome')[0].date)
       .toLocaleDateString('en-US', { 
         weekday: "short", 
@@ -104,12 +106,12 @@ export const Dashboard = () => {
         day: '2-digit' }
       )
 
-    const lastTransactionDay = new Date(transactions[0].date)
+    const lastTransactionDay = new Date(allTransactions[0].date)
       .toLocaleDateString('en-US', {
         month: 'short',
         day: '2-digit',
       })
-    const lastTransactionMonth = new Date(transactions[0].date)
+    const lastTransactionMonth = new Date(allTransactions[0].date)
       .toLocaleDateString('en-US', {
         month: 'short',
       })
@@ -137,14 +139,21 @@ export const Dashboard = () => {
         lastTransactionDate: `Between ${lastTransactionMonth} 01 and ${lastTransactionDay}`
       }
     })
-    setTransactions(transactions)
+    
+    setTransactions(allTransactions)
     setIsLoading(false)
   }
 
+  const transactionsRefreshed = () => {
+    if (listRef) {
+      if (listRef.current) listRef.current.scrollToOffset({ animated: true, offset: 0 });
+    }  
+  }
+
+  useScrollToTop(listRef)
+
   useEffect(() => {
     loadTransactions()
-    
-    // return () => {}
   }, []);
 
   useFocusEffect(
@@ -215,6 +224,9 @@ export const Dashboard = () => {
           data={transactions}
           renderItem={({ item }) => <TransactionCard data={item} />} 
           keyExtractor={( item ) => item.id}
+          ref={listRef}
+          onContentSizeChange={transactionsRefreshed}
+          // windowSize={1}
         />
       </TransactionsSection>
     </Container>
