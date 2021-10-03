@@ -12,6 +12,7 @@ import { Register } from './src/screens/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from './src/routes/app.routes';
 import { StatusBar } from 'react-native';
+import { SignIn } from './src/screens/SignIn';
 
 
 const App = () => {
@@ -31,10 +32,8 @@ const App = () => {
         <StatusBar
           barStyle="light-content"
         />
-        <AppRoutes />
-        {/* <Dashboard /> */}
-        {/* <Register /> */}
-        {/* <Categories /> */}
+        {/* <AppRoutes /> */}
+        <SignIn />
       </NavigationContainer>
     </ThemeProvider>
   );
