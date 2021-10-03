@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from './src/routes/app.routes';
 import { StatusBar } from 'react-native';
 import { SignIn } from './src/screens/SignIn';
-import { AuthContext } from './src/AuthContext';
+import { AuthProvider } from './src/hooks/auth';
 
 
 const App = () => {
@@ -30,10 +30,10 @@ const App = () => {
         <StatusBar
           barStyle="light-content"
         />
-          <AuthContext.Provider value={[]}>
+        <AuthProvider>
           {/* <AppRoutes /> */}
-            <SignIn />
-          </AuthContext.Provider>
+          <SignIn />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );
