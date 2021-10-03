@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import AppleLogo from '../../assets/apple-logo.svg'
@@ -20,10 +20,17 @@ import {
 } from './styles';
 
 export const SignIn = () => {
-  const { user } = useAuth();
-
-  console.log(user.name);
+  const { signInWithGoogle } = useAuth();
   
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle()
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Error while logging with google account')
+    }
+  }
+
   return (
     <Container>
       <Header>
@@ -54,6 +61,7 @@ export const SignIn = () => {
           <SocialSignInButton 
             title="Login with Google"
             svg={GoogleLogo}
+            onPress={handleGoogleSignIn}
           />
         </ButtonsSection>
       </Footer>
