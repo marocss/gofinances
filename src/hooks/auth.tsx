@@ -1,5 +1,7 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react'
 import * as AuthSession from 'expo-auth-session'
+import * as AppleAuthentication from 'expo-apple-authentication';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { CLIENT_ID } = process.env;
 const { REDIRECT_URI } = process.env;
@@ -18,6 +20,7 @@ interface User {
 interface AuthContextProps {
   user: User;
   signInWithGoogle(): Promise<void>
+  signInWithApple(): Promise<void>
 }
 
 interface GoogleAuthSessionResponse {
@@ -35,10 +38,40 @@ interface GoogleAuthSessionResponse {
   url: string;
 }
 
+const userCollectionKey = '@gofinances:user'
+
 const AuthContext = createContext({} as AuthContextProps)
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>({} as User)
+
+  const signInWithApple = async () => {
+    try {
+      const appleAuthCredential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL
+        ]
+      });
+
+      if (appleAuthCredential) {
+        const fullName = appleAuthCredential.fullName!.givenName! + ' ' + appleAuthCredential.fullName!.familyName!
+        
+        const user = {
+          id: (appleAuthCredential.user),
+          email: appleAuthCredential.email!,
+          name: fullName,
+          photo: undefined,
+        }
+
+        setUser(user)
+        await AsyncStorage.setItem(userCollectionKey, JSON.stringify(user))
+      }
+
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
 
   const signInWithGoogle = async () => {
     try {
@@ -54,16 +87,17 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
       if (type === 'success') {
         const response = await fetch(`${userInfoBaseUrl}alt=json&access_token=${params.access_token}`)
-        const user = await response.json()
+        let responseJson = await response.json()
 
-        console.log(user);
+        const user = {
+          id: responseJson.id,
+          email: responseJson.email,
+          name: responseJson.name,
+          photo: responseJson.photo,
+        }
         
-        setUser({
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          photo: user.photo,
-        })
+        setUser(user)
+        await AsyncStorage.setItem(userCollectionKey, JSON.stringify(user))
       }
 
     } catch (error) {
@@ -72,7 +106,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle }}>
+    <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple }}>
       {children}
     </AuthContext.Provider>
   )
