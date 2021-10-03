@@ -6,13 +6,11 @@ import 'intl'
 import 'intl/locale-data/jsonp/en-US'
 import 'intl/locale-data/jsonp/pt-BR'
 import theme from './src/global/styles/theme';
-import { Categories } from './src/screens/Categories';
-import { Dashboard } from './src/screens/Dashboard';
-import { Register } from './src/screens/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import { AppRoutes } from './src/routes/app.routes';
 import { StatusBar } from 'react-native';
 import { SignIn } from './src/screens/SignIn';
+import { AuthContext } from './src/AuthContext';
 
 
 const App = () => {
@@ -32,8 +30,10 @@ const App = () => {
         <StatusBar
           barStyle="light-content"
         />
-        {/* <AppRoutes /> */}
-        <SignIn />
+          <AuthContext.Provider value={[]}>
+          {/* <AppRoutes /> */}
+            <SignIn />
+          </AuthContext.Provider>
       </NavigationContainer>
     </ThemeProvider>
   );
