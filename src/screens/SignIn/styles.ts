@@ -1,4 +1,4 @@
-import { RFValue } from 'react-native-responsive-fontsize';
+import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -11,9 +11,9 @@ export const Header = styled.View`
 
   background-color: ${({ theme }) => theme.colors.one};
 
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
-  padding-top: ${RFValue(128)}px;
+  /* padding-top: ${RFValue(128)}px; */
 `;
   
 export const TitleSection = styled.View`
@@ -33,9 +33,8 @@ export const Description = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
   font-size: ${RFValue(14)}px;
   text-align: center;
-  /* margin-top: ${RFValue(71)}px; */
   margin-top: ${RFValue(112)}px;
-  margin-bottom: ${RFValue(36)}px;
+  margin-bottom: ${RFValue(60)}px;
 `;
   
 export const Footer = styled.View`
@@ -44,5 +43,9 @@ export const Footer = styled.View`
   height: 30.5%;
 `;
 
-export const AppleButton = styled.Text`
+export const ButtonsSection = styled.View`
+  margin-top: ${RFPercentage(-3.5)}px;
+  padding: 0 ${RFValue(32)}px;
+
+  justify-content: space-between
 `;
