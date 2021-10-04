@@ -232,6 +232,12 @@ export const Dashboard = () => {
 
       <CardsSection>
         <HighlightCard 
+          title="Balance" 
+          amount={highlights.residue.amount}
+          lastTransaction={highlights.residue.lastTransactionDate}
+          type="total"
+        />
+        <HighlightCard 
           title="Income" 
           amount={highlights.income.amount} 
           lastTransaction={highlights.income.lastTransactionDate}
@@ -242,12 +248,6 @@ export const Dashboard = () => {
           amount={highlights.outcome.amount}
           lastTransaction={highlights.outcome.lastTransactionDate}
           type="down"
-        />
-        <HighlightCard 
-          title="Total" 
-          amount={highlights.residue.amount}
-          lastTransaction={highlights.residue.lastTransactionDate}
-          type="total"
         />
       </CardsSection>
 

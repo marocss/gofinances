@@ -64,7 +64,7 @@ export const Register = () => {
     setHasSelectedTransactionType(true)
   }
 
-  function handleOpenCategoriesModal() {
+  async function handleOpenCategoriesModal() {
     setIsModalOpen(true)
   }
   
