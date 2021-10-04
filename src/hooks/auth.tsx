@@ -19,8 +19,10 @@ interface User {
 
 interface AuthContextProps {
   user: User;
-  signInWithGoogle(): Promise<void>
-  signInWithApple(): Promise<void>
+  signInWithGoogle(): Promise<void>;
+  signInWithApple(): Promise<void>;
+  signOut(): Promise<void>;
+  isLoading: boolean;
 }
 
 interface GoogleAuthSessionResponse {
@@ -44,10 +46,12 @@ const AuthContext = createContext({} as AuthContextProps)
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>({} as User)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   const signInWithApple = async () => {
     try {
+      setIsLoading(true)
+
       const appleAuthCredential = await AppleAuthentication.signInAsync({
         requestedScopes: [
           AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
@@ -56,21 +60,26 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       });
 
       if (appleAuthCredential) {
-        const fullName = appleAuthCredential.fullName!.givenName! + ' ' + appleAuthCredential.fullName!.familyName!
+        const nameForUrl = appleAuthCredential.fullName!.givenName! + '+' + appleAuthCredential.fullName!.familyName!
+        const photoUrl = `https://ui-avatars.com/api/?name=${nameForUrl}&background=random`
         
+        const fullName = appleAuthCredential.fullName!.givenName! + ' ' + appleAuthCredential.fullName!.familyName!
+
         const user = {
           id: (appleAuthCredential.user),
           email: appleAuthCredential.email!,
           name: fullName,
-          photo: undefined,
+          photo: photoUrl,
         }
 
+        setIsLoading(false)
         setUser(user)
         await AsyncStorage.setItem(userCollectionKey, JSON.stringify(user))
       }
 
     } catch (error) {
-      throw new Error(error)
+      setIsLoading(false)
+      throw new Error(JSON.stringify(error))
     }
   }
 
@@ -81,6 +90,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
       const response_type = 'token'
       const scope = encodeURI('profile email')
+
+      setIsLoading(true)
 
       const authUrl = `${authBaseUrl}client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${response_type}&scope=${scope}`
 
@@ -97,30 +108,45 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           photo: responseJson.picture,
         }
         
+        setIsLoading(false)
+
         setUser(user)
         await AsyncStorage.setItem(userCollectionKey, JSON.stringify(user))
       }
 
     } catch (error) {
-      throw new Error(error);
+      setIsLoading(false)
+
+      throw new Error(JSON.stringify(error));
     }
+  }
+
+  const signOut = async () => {
+    setIsLoading(true)
+
+    setUser({} as User)
+    await AsyncStorage.removeItem(userCollectionKey)
+
+    setIsLoading(false)
   }
 
   useEffect(() => {
     (async () => {
-      const user = await AsyncStorage.getItem(userCollectionKey)
+      setIsLoading(true)
 
+      const user = await AsyncStorage.getItem(userCollectionKey)
       if (user) {
         const userJson = JSON.parse(user)
 
         setUser(userJson)
       }
+
       setIsLoading(false)
     })()
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple }}>
+    <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple, signOut, isLoading }}>
       {children}
     </AuthContext.Provider>
   )

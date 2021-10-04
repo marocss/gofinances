@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Alert, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Alert, ActivityIndicator } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import AppleLogo from '../../assets/apple-logo.svg'
@@ -17,10 +17,14 @@ import {
   Description,
   Footer,
   ButtonsSection,
+  LoadingContainer,
 } from './styles';
+import { useTheme } from 'styled-components';
 
-export const SignIn = () => {
-  const { signInWithGoogle, signInWithApple } = useAuth();
+export const SignIn = () => {  
+  const { signInWithGoogle, signInWithApple, isLoading } = useAuth();
+
+  const theme = useTheme()
   
   const handleAppleSignIn = async () => {
     try {
@@ -40,6 +44,7 @@ export const SignIn = () => {
     }
   }
 
+  
   return (
     <Container>
       <Header>
@@ -67,13 +72,21 @@ export const SignIn = () => {
             title="Login with Apple"
             svg={AppleLogo}
             onPress={handleAppleSignIn}
+            disabled={isLoading}
           />
           <SocialSignInButton 
             title="Login with Google"
             svg={GoogleLogo}
             onPress={handleGoogleSignIn}
+            disabled={isLoading}
           />
         </ButtonsSection>
+
+        { isLoading && (
+          <LoadingContainer>
+            <ActivityIndicator color={theme.colors.shape} size="large" />
+          </LoadingContainer>
+        )}
       </Footer>
     </Container>
   )

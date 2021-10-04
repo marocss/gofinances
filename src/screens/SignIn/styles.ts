@@ -49,3 +49,8 @@ export const ButtonsSection = styled.View`
 
   justify-content: space-between
 `;
+
+export const LoadingContainer = styled.View`
+  /* flex: 1; */
+  margin-top: ${RFValue(21)}px;
+`;

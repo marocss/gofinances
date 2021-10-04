@@ -5,6 +5,7 @@ import { ActivityIndicator } from 'react-native';
 import { useTheme } from 'styled-components';
 import { HighlightCard } from '../../components/HighlightCard';
 import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
+import { useAuth } from '../../hooks/auth';
 import { 
   Container, 
   Header, 
@@ -46,6 +47,8 @@ export const Dashboard = () => {
   const listRef = useRef(null)
 
   const theme = useTheme() 
+
+  const { signOut, user } = useAuth()
 
   const loadTransactions = async () => {
     const collectionKey = '@gofinances:transactions'
@@ -177,6 +180,10 @@ export const Dashboard = () => {
     }  
   }
 
+  const handleSignOut = () => {
+    signOut()
+  }
+
   useScrollToTop(listRef)
 
   useEffect(() => {
@@ -207,17 +214,17 @@ export const Dashboard = () => {
           <User>
             <Avatar 
               source={{ 
-                uri: 'https://avatars.githubusercontent.com/u/34945925?v=4' 
+                uri: `${user.photo}`
               }} 
             />
 
             <TextArea>
               <Greeting>Yo, </Greeting>
-              <Name>Marcos R. Leite Junior</Name>
+              <Name>{user.name}</Name>
             </TextArea>
           </User>
 
-          <LogoutButton onPress={() => {}}>
+          <LogoutButton onPress={handleSignOut}>
             <Icon name="power"/>
           </LogoutButton>
         </HeaderFirstSection>
