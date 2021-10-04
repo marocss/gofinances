@@ -21,6 +21,7 @@ import {
   InputSection, 
   TransactionTypeButtonSection 
 } from './styles';
+import { useAuth } from '../../hooks/auth';
 
 
 interface FormData {
@@ -57,7 +58,9 @@ export const Register = () => {
     resolver: yupResolver(schema)
   })
 
-  const collectionKey = '@gofinances:transactions';
+  const { user } = useAuth()
+
+  const collectionKey = `@gofinances:transactions_user:${user.id}`;
 
   function handleTransactionSelection(type: 'income' | 'outcome') {
     setTransactionTypeSelected(type)

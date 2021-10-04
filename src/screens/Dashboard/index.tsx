@@ -51,7 +51,7 @@ export const Dashboard = () => {
   const { signOut, user } = useAuth()
 
   const loadTransactions = async () => {
-    const collectionKey = '@gofinances:transactions'
+    const collectionKey = `@gofinances:transactions_user:${user.id}`;
     const transactionsCollection = await AsyncStorage.getItem(collectionKey)
     const transactionsCollectionJson = transactionsCollection ? JSON.parse(transactionsCollection) : [];
 

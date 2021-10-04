@@ -70,14 +70,14 @@ export const SignIn = () => {
         <ButtonsSection>
           { Platform.OS === 'ios' && (
             <SocialSignInButton 
-              title="Login with Apple"
+              title="Sign in with Apple"
               svg={AppleLogo}
               onPress={handleAppleSignIn}
               disabled={isLoading}
             />
           )}
           <SocialSignInButton 
-            title="Login with Google"
+            title="Sign in with Google"
             svg={GoogleLogo}
             onPress={handleGoogleSignIn}
             disabled={isLoading}

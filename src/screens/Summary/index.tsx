@@ -8,6 +8,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
 import { VictoryContainer, VictoryPie } from 'victory-native'
 import { HistoryCard } from '../../components/HistoryCard';
+import { useAuth } from '../../hooks/auth';
 import { categories } from '../../utils/categories';
 
 import { 
@@ -43,7 +44,6 @@ interface CategorySummaryItem {
   percentOfTotal: string;
 }
 
-const collectionKey = '@gofinances:transactions';
 
 export const Summary = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -55,6 +55,8 @@ export const Summary = () => {
   const scrollViewRef = useRef(null)
   const tabBarHeight = useBottomTabBarHeight()
 
+  const { user } = useAuth()
+
   const handleDateSelection = (action: 'next' | 'previous') => {
     if (action === 'next') setSelectedDate(addMonths(selectedDate, 1))
     else if (action === 'previous') setSelectedDate(subMonths(selectedDate, 1))
@@ -62,6 +64,8 @@ export const Summary = () => {
 
   const loadData = async () => {
     setIsLoading(true)
+    const collectionKey = `@gofinances:transactions_user:${user.id}`;
+    
     const transactionsCollection = await AsyncStorage.getItem(collectionKey)
     const transactions = transactionsCollection ? JSON.parse(transactionsCollection) : [];
 
