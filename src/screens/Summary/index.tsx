@@ -47,6 +47,7 @@ const collectionKey = '@gofinances:transactions';
 
 export const Summary = () => {
   const [isLoading, setIsLoading] = useState(true)
+  const [hasTransactions, setHasTransactions] = useState(false)
   const [categoriesSummary, setCategoriesSummary] = useState<CategorySummaryItem[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date())
 
@@ -77,6 +78,10 @@ export const Summary = () => {
 
         return accumulator + value
     }, 0)
+
+    if (totalOutcome > 0) {
+      setHasTransactions(true)
+    }
 
     const totalByCategory: CategorySummaryItem[]  = []
 
@@ -149,24 +154,25 @@ export const Summary = () => {
             paddingBottom: tabBarHeight
           }}
         >
-          <NavSection>
-            <PreviousButton
-              onPress={() => handleDateSelection('previous')}
-            >
-              <PreviousButtonIcon name="chevron-left" />
-            </PreviousButton>
-            
-            <Month>
-              {format(selectedDate, 'MMMM, yyyy')}
-            </Month>
+          { hasTransactions && (
+            <NavSection>
+              <PreviousButton
+                onPress={() => handleDateSelection('previous')}
+              >
+                <PreviousButtonIcon name="chevron-left" />
+              </PreviousButton>
+              
+              <Month>
+                {format(selectedDate, 'MMMM, yyyy')}
+              </Month>
 
-            <NextButton
-              onPress={() => handleDateSelection('next')}          
-            >
-              <NextButtonIcon name="chevron-right" />
-            </NextButton>
-          </NavSection>
-
+              <NextButton
+                onPress={() => handleDateSelection('next')}          
+              >
+                <NextButtonIcon name="chevron-right" />
+              </NextButton>
+            </NavSection>
+          )}
 
           <ChartSection>
             <VictoryPie 

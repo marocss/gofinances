@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import * as AuthSession from 'expo-auth-session'
 import * as AppleAuthentication from 'expo-apple-authentication';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -44,6 +44,7 @@ const AuthContext = createContext({} as AuthContextProps)
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>({} as User)
+  const [isLoading, setIsLoading] = useState(true)
 
   const signInWithApple = async () => {
     try {
@@ -93,7 +94,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           id: responseJson.id,
           email: responseJson.email,
           name: responseJson.name,
-          photo: responseJson.photo,
+          photo: responseJson.picture,
         }
         
         setUser(user)
@@ -104,6 +105,19 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       throw new Error(error);
     }
   }
+
+  useEffect(() => {
+    (async () => {
+      const user = await AsyncStorage.getItem(userCollectionKey)
+
+      if (user) {
+        const userJson = JSON.parse(user)
+
+        setUser(userJson)
+      }
+      setIsLoading(false)
+    })()
+  }, [])
 
   return (
     <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple }}>

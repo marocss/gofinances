@@ -59,28 +59,6 @@ export const Register = () => {
 
   const collectionKey = '@gofinances:transactions';
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await AsyncStorage.getItem(collectionKey)
-
-        if (data) {
-          const jsonData = JSON.parse(data)
-          // console.log('async storage data: ', jsonData);
-        } else {
-          console.log('no data');
-        }
-
-        // delete items
-        // await AsyncStorage.removeItem(collectionKey)
-
-      } catch (error) {
-        console.log(error);
-        Alert.alert('Sorry, something went wrong.')
-      }
-    })()
-  }, [])
-
   function handleTransactionSelection(type: 'income' | 'outcome') {
     setTransactionTypeSelected(type)
     setHasSelectedTransactionType(true)

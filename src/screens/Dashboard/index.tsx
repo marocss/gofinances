@@ -29,7 +29,7 @@ export interface ListProps extends TransactionCardProps {
 
 interface Card {
   amount: string;
-  lastTransactionDate: string;
+  lastTransactionDate?: string;
 }
 
 interface Highlights {
@@ -89,54 +89,81 @@ export const Dashboard = () => {
       }
     )
 
-    const amountLeft = totalIncome - totalOutcome
-    const lastIncomeTransactionDate = new Date(allTransactions
-      .filter(transaction => transaction.type === 'income')[0].date)
-      .toLocaleDateString('en-US', { 
-        weekday: "short", 
-        month: 'long', 
-        day: '2-digit' }
-      )
-
-    const lastOutcomeTransactionDate = new Date(allTransactions
-      .filter(transaction => transaction.type === 'outcome')[0].date)
-      .toLocaleDateString('en-US', { 
-        weekday: "short", 
-        month: 'long', 
-        day: '2-digit' }
-      )
-
-    const lastTransactionDay = new Date(allTransactions[0].date)
-      .toLocaleDateString('en-US', {
-        month: 'short',
-        day: '2-digit',
-      })
-    const lastTransactionMonth = new Date(allTransactions[0].date)
-      .toLocaleDateString('en-US', {
-        month: 'short',
-      })
+    const accountBalance = totalIncome - totalOutcome
     
+    let lastIncomeTransactionDate
+    if (totalIncome > 0) {
+      lastIncomeTransactionDate = new Date(allTransactions
+        .filter(transaction => transaction.type === 'income')[0].date)
+        .toLocaleDateString('en-US', { 
+          weekday: "short", 
+          month: 'long', 
+          day: '2-digit' }
+        )
+    } else {
+      lastIncomeTransactionDate = undefined
+    }
+
+    let lastOutcomeTransactionDate
+    if (totalOutcome > 0) {
+      lastOutcomeTransactionDate = new Date(allTransactions
+        .filter(transaction => transaction.type === 'outcome')[0].date)
+        .toLocaleDateString('en-US', { 
+          weekday: "short", 
+          month: 'long', 
+          day: '2-digit' }
+        )
+    } else {
+      lastOutcomeTransactionDate = undefined
+    }
+
+    let lastTransactionDay
+    let lastTransactionMonth
+    if (allTransactions.length > 0) {
+      lastTransactionDay = new Date(allTransactions[0].date)
+        .toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit',
+        })
+      lastTransactionMonth = new Date(allTransactions[0].date)
+        .toLocaleDateString('en-US', {
+          month: 'short',
+        })
+    } else {
+      lastTransactionDay = undefined
+      lastTransactionMonth = undefined
+    }
+
+    const lastIncomeTransactionInfo = (totalIncome > 0) ? 
+      (`Last income was ${lastIncomeTransactionDate}`) : (undefined)
+
+    const lastOutcomeTransactionInfo = (totalOutcome > 0) ? 
+      (`Last income was ${lastOutcomeTransactionDate}`) : (undefined)
+
+    const lastTransactionInfo = (allTransactions.length > 0) ? 
+    (`Between ${lastTransactionMonth} 01 and ${lastTransactionDay}`) : (undefined)
+
     setHighlights({
       income: {
         amount: totalIncome.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD'
         }),
-        lastTransactionDate: `Last income was ${lastIncomeTransactionDate}`
+        lastTransactionDate: lastIncomeTransactionInfo
       },
       outcome: {
         amount: totalOutcome.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD'
         }),
-        lastTransactionDate: `Last outcome was ${lastOutcomeTransactionDate}`
+        lastTransactionDate: lastOutcomeTransactionInfo
       }, 
       residue: {
-        amount: amountLeft.toLocaleString('en-US', {
+        amount: accountBalance.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD'
         }),
-        lastTransactionDate: `Between ${lastTransactionMonth} 01 and ${lastTransactionDay}`
+        lastTransactionDate: lastTransactionInfo
       }
     })
     
@@ -226,7 +253,6 @@ export const Dashboard = () => {
           keyExtractor={( item ) => item.id}
           ref={listRef}
           onContentSizeChange={transactionsRefreshed}
-          // windowSize={1}
         />
       </TransactionsSection>
     </Container>
