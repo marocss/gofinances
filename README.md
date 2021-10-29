@@ -14,6 +14,8 @@
 
 ## Demo
 
+https://user-images.githubusercontent.com/34945925/139381316-40b4df47-ddbd-4a59-8fc7-9c56e55f25eb.mp4
+
 
 ## Run locally
 * make sure you have expo installed correctly
