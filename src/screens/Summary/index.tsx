@@ -27,7 +27,7 @@ import {
 } from './styles';
 
 interface Transaction {
-  type: 'income' | 'outcome'
+  type: 'income' | 'outcome';
   name: string;
   price: string;
   category: string;

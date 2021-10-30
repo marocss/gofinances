@@ -13,14 +13,14 @@ import {
   Footer
 } from './styles';
 
-interface Category {
+interface ICategory {
   key: string;
   name: string;
 }
 
 interface Props {
-  category: Category;
-  setCategory: (category: Category) => void;
+  category: ICategory;
+  setCategory: (category: ICategory) => void;
   closeSelectCategory: () => void;
 }
 
@@ -30,7 +30,7 @@ export const Categories = ({
   closeSelectCategory
 } : Props) => {
 
-  function handleSetCategory(category: Category) {
+  function handleSetCategory(category: ICategory) {
     setCategory(category)
   }
 

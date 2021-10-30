@@ -14,12 +14,6 @@ interface TypeButtonProps {
   hasSelectedTransactionType: boolean;
 }
 
-interface TypeButtonProps {
-  isActive: boolean;
-  type: 'income' | 'outcome';
-  hasSelectedTransactionType: boolean;
-}
-
 interface ContainerProps {
   hasSelectedTransactionType: boolean;
 }
