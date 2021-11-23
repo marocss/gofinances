@@ -3,8 +3,10 @@ import { render } from '@testing-library/react-native';
 
 import Profile from '../../../screens/Profile';
 
-test('should have an input with "name" as placeholder', () => {
-  const { debug } = render(<Profile />);
+test('should have a TextInput with "Name" as placeholder', () => {
+  const { getByPlaceholderText } = render(<Profile />);
 
-  debug();
+  const nameInput = getByPlaceholderText('Name');
+
+  expect(nameInput).toBeTruthy();
 })
