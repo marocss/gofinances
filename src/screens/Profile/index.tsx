@@ -6,16 +6,21 @@ const Profile = () => {
   const handleSave = () => {
 
   }
+
   return (
     <Container>
-      <Title>Profile</Title>
+      <Title testID="page-title">Profile</Title>
       <Input
+        testID="name-input"
         placeholder="Name"
         autoCorrect={false}
-      />
+        value="Marcos"
+        />
       <Input
+        testID="last-name-input"
         placeholder="Last Name"
         autoCorrect={false}
+        value="L"
       />
       <Button title="Save" onPress={handleSave}/>
     </Container>
