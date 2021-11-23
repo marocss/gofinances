@@ -11,6 +11,7 @@
 * [react navigation](https://reactnavigation.org)
 * [yup](https://github.com/jquense/yup)
 * [date-fns](https://date-fns.org)
+* [react native testing library](https://callstack.github.io/react-native-testing-library/)
 
 ## Demo
 
