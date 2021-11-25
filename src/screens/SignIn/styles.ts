@@ -13,7 +13,6 @@ export const Header = styled.View`
 
   justify-content: flex-end;
   align-items: center;
-  /* padding-top: ${RFValue(128)}px; */
 `;
   
 export const TitleSection = styled.View`
@@ -51,6 +50,5 @@ export const ButtonsSection = styled.View`
 `;
 
 export const LoadingContainer = styled.View`
-  /* flex: 1; */
   margin-top: ${RFValue(21)}px;
 `;

@@ -1,8 +1,6 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { Feather } from '@expo/vector-icons'
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { VictoryContainer } from 'victory-native';
 
 export const Container = styled.View`
   flex: 1;

@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
-import { VictoryContainer, VictoryPie } from 'victory-native'
+import { VictoryPie } from 'victory-native'
 import { HistoryCard } from '../../components/HistoryCard';
 import { useAuth } from '../../hooks/auth';
 import { categories } from '../../utils/categories';

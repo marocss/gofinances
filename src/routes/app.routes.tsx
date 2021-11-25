@@ -11,7 +11,6 @@ const { Navigator, Screen } = createBottomTabNavigator()
 
 export const AppRoutes = () => {
   const theme = useTheme() 
-  // const isTabBarHidden = Platform.OS === 'ios' ? false : true
   
   return (
     <Navigator
@@ -33,11 +32,7 @@ export const AppRoutes = () => {
               color={color}
             />
           )),
-          tabBarLabelPosition: 'beside-icon',
-          // tabBarHideOnKeyboard: true,
-          // tabBarStyle: {
-          //   position: 'absolute'
-          // }
+          tabBarLabelPosition: 'beside-icon'
         }}
       />
       <Screen 
@@ -54,11 +49,7 @@ export const AppRoutes = () => {
               color={color}
             />
           )),
-          tabBarLabelPosition: 'beside-icon',
-          // tabBarHideOnKeyboard: isTabBarHidden
-          // tabBarStyle: {
-          //   position: 'absolute'
-          // }
+          tabBarLabelPosition: 'beside-icon'
         }}
       />
       <Screen 

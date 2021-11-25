@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { Alert, ActivityIndicator, Platform } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import AppleLogo from '../../assets/apple-logo.svg'
 import GoogleLogo from '../../assets/google-logo.svg'
 import Logo from '../../assets/logo.svg'
-// import { AuthContext } from '../../AuthContext';
 import { useAuth } from '../../hooks/auth';
 import { SocialSignInButton } from '../../components/SocialSignInButton';
 
