@@ -107,7 +107,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           name: responseJson.name,
           photo: responseJson.picture,
         }
-        
+
         setIsLoading(false)
 
         setUser(user)
