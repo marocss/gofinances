@@ -116,7 +116,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     } catch (error) {
       setIsLoading(false)
-
+      console.log('====================================');
+      console.log(error);
+      console.log('====================================');
       throw new Error(JSON.stringify(error));
     }
   }
