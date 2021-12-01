@@ -16,10 +16,8 @@ const userTest = {
   photo: 'any_photo.png'
 };
 
-
 describe('Auth hook', () => {
   beforeEach(async () => {
-     // bug fix remove user added by previous test
      const userCollectionKey = '@gofinances:user'
      await AsyncStorage.removeItem(userCollectionKey)
   })
@@ -41,32 +39,22 @@ describe('Auth hook', () => {
 
     await act(() => result.current.signInWithGoogle())
 
-    // console.log('====================================');
-    // console.log('user:', result.current.user);
-    // console.log('====================================');
-
     expect(result.current.user.email)
       .toBe(userTest.email);
   })
 
   it('should fail to connect if process was cancelled', async () => {
     const googleMocked = mocked(startAsync as any)
-    googleMocked.mockReturnValue({
+    googleMocked.mockReturnValueOnce({
       type: 'cancel',
       params: {
         access_token: null,
       }
     })
 
-    // fetchMock.mockResponseOnce(JSON.stringify({}));
-
     const { result } = renderHook(() => useAuth(), {
       wrapper: AuthProvider
     });
-
-    // console.log('====================================');
-    // console.log('user:', result.current.user);
-    // console.log('====================================');
 
     await act(() => result.current.signInWithGoogle())
 
