@@ -60,8 +60,6 @@ export const Register = () => {
 
   const { user } = useAuth()
 
-  const collectionKey = `@gofinances:transactions_user:${user.id}`;
-
   function handleTransactionSelection(type: 'income' | 'outcome') {
     setTransactionTypeSelected(type)
     setHasSelectedTransactionType(true)
@@ -96,6 +94,8 @@ export const Register = () => {
 
     try {
       (async () => {
+        const collectionKey = `@gofinances:transactions_user:${user.id}`;
+
         const transactions = await AsyncStorage.getItem(collectionKey)
         const transactionsJson = transactions ? JSON.parse(transactions) : [];
 
@@ -150,7 +150,6 @@ export const Register = () => {
               control={control}
               keyboardType="numeric"
               error={errors.price && errors.price.message}
-
             />
 
             <TransactionTypeButtonSection>
@@ -170,6 +169,7 @@ export const Register = () => {
               />
             </TransactionTypeButtonSection>
             <Selector 
+              testID="button-category-selector"
               text={category.name} 
               onPress={handleOpenCategoriesModal}
             />
@@ -177,7 +177,7 @@ export const Register = () => {
           <Button text="Submit" onPress={handleSubmit(handleRegister)} />
         </Form>
 
-        <Modal visible={isModalOpen}>
+        <Modal testID="modal-category" visible={isModalOpen}>
           <Categories 
             category={category}
             setCategory={setCategory}

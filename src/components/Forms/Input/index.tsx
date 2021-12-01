@@ -9,7 +9,7 @@ interface Props extends TextInputProps {
 }
 
 export const Input = ({
-  active = true,
+  active = false,
   ...rest 
 }: Props) => {
   return (
